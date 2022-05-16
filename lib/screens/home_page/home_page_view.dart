@@ -2,10 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:newproectap/core/baseview/baseview.dart';
-import 'package:newproectap/core/constants/size_config.dart';
 import 'package:newproectap/screens/home_page/home_page_cubit.dart';
 import 'package:newproectap/screens/home_page/home_page_state.dart';
-
+import 'package:newproectap/core/extensions/mediaquary_extension.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
   List data = [
@@ -17,46 +16,44 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return BlocProvider(
       create: ((context) => MenuCubit()),
       child: BlocBuilder<MenuCubit, FilterState>(
         builder: ((context, state) => BaseView(
             viewModal: HomePage(),
             onPageBuilder: (context, widget) {
-              return mkScaffold();
+              return mkScaffold(context);
             })),
       ),
     );
   }
 
-  Scaffold mkScaffold() {
+  Scaffold mkScaffold(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFFFF),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: getWidth(15)),
-        child: Column(
+        padding: EdgeInsets.symmetric(horizontal: context.w*0.04),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: getWidth(44)),
+              padding: EdgeInsets.only(top: context.w*0.14,left: context.w*0.04),
               child: SizedBox(
-                height: getHeight(86),
-                width: getWidth(244),
+                height: context.h*0.115,
+                width: context.w*0.7,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Qanday darslar sizni qiziqtiradi?",
                       style:
-                          textStyle(getWidth(24), FontWeight.w700, 0xFF0A191E),
+                          textStyle(context.w*0.063, FontWeight.w700, 0xFF0A191E),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: getWidth(4)),
+                      padding: EdgeInsets.only(top: context.w*0.01),
                       child: Text(
                         "28 xil yo`nalishda darsliklar mavjud",
                         style: textStyle(
-                            getWidth(11), FontWeight.w500, 0xFF798184),
+                            context.w*0.03, FontWeight.w500, 0xFF798184),
                       ),
                     )
                   ],
@@ -64,13 +61,13 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: getWidth(21)),
+              padding: EdgeInsets.only(top: context.w*0.04),
               child: Container(
-                height: getHeight(41),
-                width: getWidth(343),
+                height: context.h*0.05,
+                width: context.w*0.9,
                 decoration: BoxDecoration(
                   color: const Color(0xFFF1F2F6),
-                  borderRadius: BorderRadius.circular(getWidth(10)),
+                  borderRadius: BorderRadius.circular(context.w*0.02),
                 ),
                 child: TextFormField(
                     decoration: InputDecoration(
@@ -84,14 +81,14 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: getWidth(20), left: getWidth(8)),
+              padding: EdgeInsets.only(top: context.w*0.04, left: context.w*0.02),
               child: SizedBox(
-                height: getHeight(101),
-                width: double.infinity,
+                height: context.h*0.12,
+                width: context.w,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: ((context, index) => Padding(
-                        padding: EdgeInsets.symmetric(horizontal: getWidth(5)),
+                        padding: EdgeInsets.symmetric(horizontal: context.w*0.016),
                         child: InkWell(
                           child: dasturFilterColums(data[index]['svgPath'],
                               data[index]['title'], context, index),
@@ -115,13 +112,13 @@ class HomePage extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: getHeight(72),
-          width: getWidth(71),
+          height: context.h*0.095,
+          width: context.w*0.19,
           decoration: BoxDecoration(
               color: context.watch<MenuCubit>().menuIndex == index
                   ? const Color(0xFF31B9CC)
                   : const Color(0xFFF1F2F6),
-              borderRadius: BorderRadius.circular(getWidth(16))),
+              borderRadius: BorderRadius.circular(context.w*0.04)),
           child: Center(
               child: SvgPicture.asset(
             svgPath,
@@ -131,10 +128,10 @@ class HomePage extends StatelessWidget {
           )),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(vertical: getWidth(2)),
+          padding: EdgeInsets.symmetric(vertical: context.w*0.005),
           child: Text(
             title,
-            style: textStyle(getWidth(11), FontWeight.w500, 0xFF0A191E),
+            style: textStyle(context.w*0.03, FontWeight.w500, 0xFF0A191E),
           ),
         )
       ],
