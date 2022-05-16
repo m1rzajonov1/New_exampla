@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-      ),
+      ),initialRoute: '/loader',
       onGenerateRoute: Routes.instance.onGenerateRoue,
     );
   }
