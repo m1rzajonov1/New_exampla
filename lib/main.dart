@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newproectap/screens/home_page/home_page_view.dart';
-import 'package:newproectap/screens/loader_page.dart';
+import 'package:newproectap/core/router/router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,8 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:  LoaderPage(),
+      onGenerateRoute: Routes.instance.onGenerateRoue,
     );
   }
 }
-
